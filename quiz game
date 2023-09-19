@@ -1,0 +1,58 @@
+import random
+
+
+quiz_questions = {
+    "What is the capital of France?": [["A. Berlin", "B. London", "C. Paris"], "C"],
+    "What is the largest mammal in the world?": [["A. Elephant", "B. Blue Whale", "C. Giraffe"], "B"],
+    
+}
+
+def display_welcome_message():
+    print("Welcome to the Quiz Game!")
+    print("Answer the following questions to test your knowledge.\n")
+
+def ask_question(question, choices):
+    print(question)
+    for choice in choices:
+        print(choice)
+    user_answer = input("Your choice (A/B/C): ").upper()
+    return user_answer
+
+def evaluate_answer(user_answer, correct_answer):
+    if user_answer == correct_answer:
+        return True
+    else:
+        return False
+
+def play_quiz():
+    score = 0
+    for question, choices_and_answer in quiz_questions.items():
+        choices, correct_answer = choices_and_answer
+        user_answer = ask_question(question, choices)
+        is_correct = evaluate_answer(user_answer, correct_answer)
+
+        if is_correct:
+            print("Correct!\n")
+            score += 1
+        else:
+            print(f"Incorrect. The correct answer was {correct_answer}.\n")
+
+    return score
+
+def display_final_results(score):
+    print(f"You got {score} out of {len(quiz_questions)} questions correct!")
+    if score == len(quiz_questions):
+        print("Congratulations! You got a perfect score!")
+
+def play_again():
+    play_again = input("Do you want to play again? (yes/no): ").lower()
+    return play_again == "yes"
+
+
+while True:
+    display_welcome_message()
+    user_score = play_quiz()
+    display_final_results(user_score)
+
+    if not play_again():
+        break
